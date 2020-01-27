@@ -11,7 +11,7 @@
 
 <meta name="author" content="Inayatus" />
 
-<meta name="date" content="2020-01-24" />
+<meta name="date" content="2020-01-27" />
 
 <title>Pengenalan Teori Antrian</title>
 
@@ -2855,7 +2855,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Pengenalan Teori Antrian</h1>
 <h4 class="author">Inayatus</h4>
-<h4 class="date">January 24, 2020</h4>
+<h4 class="date">January 27, 2020</h4>
 
 </div>
 
@@ -3045,16 +3045,12 @@ text-align: justify}
 <div id="load-package-dan-data" class="section level3">
 <h3><span class="header-section-number">5.0.1</span> Load package dan data</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># read data</span></a>
-<a class="sourceLine" id="cb1-2" title="2">service &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data_input/service.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb1-2" title="2">service &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data_input/service2.csv&quot;</span>)</a>
 <a class="sourceLine" id="cb1-3" title="3"></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="co"># service %&gt;% </span></a>
-<a class="sourceLine" id="cb1-5" title="5"><span class="co">#    # rename(arrival = service, service = arrival) %&gt;% </span></a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="co">#    # write.csv(&quot;data_input/service.csv&quot;, row.names = F)</span></a>
-<a class="sourceLine" id="cb1-7" title="7"><span class="co">#    filter()</span></a>
-<a class="sourceLine" id="cb1-8" title="8"><span class="kw">head</span>(service)</a></code></pre></div>
+<a class="sourceLine" id="cb1-4" title="4"><span class="kw">head</span>(service)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["service"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["arrival"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.81788639","2":"1.3128388","_rn_":"1"},{"1":"0.64056388","2":"0.4183288","_rn_":"2"},{"1":"0.09260608","2":"0.2790050","_rn_":"3"},{"1":"2.74102862","2":"1.1158354","_rn_":"4"},{"1":"0.55292499","2":"0.5732391","_rn_":"5"},{"1":"1.03931799","2":"0.1695839","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["arrival"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["service"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.81788639","2":"1.3128388","_rn_":"1"},{"1":"0.64056388","2":"0.4183288","_rn_":"2"},{"1":"0.09260608","2":"0.2790050","_rn_":"3"},{"1":"2.74102862","2":"1.1158354","_rn_":"4"},{"1":"0.55292499","2":"0.5732391","_rn_":"5"},{"1":"1.03931799","2":"0.1695839","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>Penjelasan untuk data <code>service</code> adalah sebagai berikut:</p>
@@ -3082,14 +3078,14 @@ text-align: justify}
 ##  One-sample Kolmogorov-Smirnov test
 ## 
 ## data:  service$arrival
-## D = 0.056532, p-value = 0.9066
+## D = 0.072431, p-value = 0.6705
 ## alternative hypothesis: two-sided</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">ks.test</span>(service<span class="op">$</span>service, <span class="st">&quot;pexp&quot;</span>, fit2<span class="op">$</span>estimate)</a></code></pre></div>
 <pre><code>## 
 ##  One-sample Kolmogorov-Smirnov test
 ## 
 ## data:  service$service
-## D = 0.072431, p-value = 0.6705
+## D = 0.056532, p-value = 0.9066
 ## alternative hypothesis: two-sided</code></pre>
 <p>Berdasarkan p-value yang ada lebih dari nilai alpha (5%), sehingga dapat kita simpulkan asumsi untuk distribusi kedatangan dan pelayanan memiliki distribusi eksponensial. Oleh karena itu kita bisa memodelkan sementara model antrian pada sistem antrian service sepeda motor ini menjadi (M/M/c):(FCFS/<span class="math inline">\(\infty\)</span>/<span class="math inline">\(\infty\)</span>).</p>
 <p>Selanjutnya yaitu kita cek juga apakah sistem antrian yang kita miliki sudah memenuhi kondisi steady state atau belum.</p>
@@ -3097,8 +3093,14 @@ text-align: justify}
 <p>Ketika nilai steady state mendekati 0 artinya tingkat kesibukan fasilitas pelayanan sangat sedikit, jika nilainya mendekati 1 atau lebih artinya fasilitas pelayanan bekerja terus dan tidak ada yang menganggur.</p>
 </blockquote>
 <p>Untuk dapat melakukan pengecekan nilai steady state, kita harus mencari nilai rata-rata kedatangan (<span class="math inline">\(\lambda\)</span>) dan rata-rata pelayanan (<span class="math inline">\(\mu\)</span>).</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">source</span>(<span class="st">&quot;steady_state.R&quot;</span>)</a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="kw">steady_state</span>(service)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">steady_state &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="cf">if</span> ((x<span class="op">$</span>arrival <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()) <span class="op">&lt;</span><span class="st"> </span>(x<span class="op">$</span>service <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>())) {</a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">print</span>(<span class="st">&quot;steady state&quot;</span>)</a>
+<a class="sourceLine" id="cb6-4" title="4">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb6-5" title="5">    <span class="kw">print</span>(<span class="st">&quot;not steady state&quot;</span>)</a>
+<a class="sourceLine" id="cb6-6" title="6">  }</a>
+<a class="sourceLine" id="cb6-7" title="7">}</a>
+<a class="sourceLine" id="cb6-8" title="8"><span class="kw">steady_state</span>(service)</a></code></pre></div>
 <pre><code>## [1] &quot;steady state&quot;</code></pre>
 </div>
 <div id="analisis-antrian" class="section level3">
@@ -3110,8 +3112,8 @@ text-align: justify}
 <a class="sourceLine" id="cb8-4" title="4">c &lt;-<span class="st"> </span><span class="dv">13</span></a>
 <a class="sourceLine" id="cb8-5" title="5">lambda &lt;-<span class="st"> </span><span class="kw">mean</span>(service<span class="op">$</span>arrival)</a>
 <a class="sourceLine" id="cb8-6" title="6">mu &lt;-<span class="st"> </span><span class="kw">mean</span>(service<span class="op">$</span>service)</a>
-<a class="sourceLine" id="cb8-7" title="7">input_mm1 &lt;-<span class="st"> </span>queueing<span class="op">::</span><span class="kw">NewInput.MM1</span>(<span class="dt">lambda =</span> <span class="dv">1</span><span class="op">/</span>lambda, <span class="dt">mu =</span> <span class="dv">1</span><span class="op">/</span>mu)</a>
-<a class="sourceLine" id="cb8-8" title="8">input_mmc &lt;-<span class="st"> </span>queueing<span class="op">::</span><span class="kw">NewInput.MMC</span>(<span class="dt">lambda =</span> <span class="dv">1</span><span class="op">/</span>lambda, <span class="dt">mu =</span> <span class="dv">1</span><span class="op">/</span>mu, <span class="dt">c =</span> c)</a>
+<a class="sourceLine" id="cb8-7" title="7">input_mm1 &lt;-<span class="st"> </span>queueing<span class="op">::</span><span class="kw">NewInput.MM1</span>(<span class="dt">lambda =</span> lambda, <span class="dt">mu =</span> mu)</a>
+<a class="sourceLine" id="cb8-8" title="8">input_mmc &lt;-<span class="st"> </span>queueing<span class="op">::</span><span class="kw">NewInput.MMC</span>(<span class="dt">lambda =</span> lambda, <span class="dt">mu =</span> mu, <span class="dt">c =</span> c)</a>
 <a class="sourceLine" id="cb8-9" title="9"></a>
 <a class="sourceLine" id="cb8-10" title="10"><span class="co"># check input</span></a>
 <a class="sourceLine" id="cb8-11" title="11"><span class="kw">CheckInput.i_MM1</span>(input_mm1)</a>
@@ -3124,29 +3126,29 @@ text-align: justify}
 <a class="sourceLine" id="cb8-18" title="18"><span class="co"># print model</span></a>
 <a class="sourceLine" id="cb8-19" title="19"><span class="kw">summary</span>(model_mm1)</a></code></pre></div>
 <pre><code>##      lambda       mu c  k  m        RO        P0       Lq       Wq         X
-## 1 0.9618636 1.144332 1 NA NA 0.8405462 0.1594538 4.430864 4.606541 0.9618636
+## 1 0.8738726 1.039648 1 NA NA 0.8405462 0.1594538 4.430864 5.070377 0.8738726
 ##         L        W      Wqq     Lqq
-## 1 5.27141 5.480413 5.480413 6.27141</code></pre>
+## 1 5.27141 6.032241 6.032241 6.27141</code></pre>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">summary</span>(model_mmc)</a></code></pre></div>
 <pre><code>##      lambda       mu  c  k  m        RO        P0           Lq           Wq
-## 1 0.9618636 1.144332 13 NA NA 0.0646574 0.4314748 5.353684e-13 5.565949e-13
+## 1 0.8738726 1.039648 13 NA NA 0.0646574 0.4314748 5.353684e-13 6.126389e-13
 ##           X         L         W        Wqq      Lqq
-## 1 0.9618636 0.8405462 0.8738726 0.07186775 1.069127</code></pre>
+## 1 0.8738726 0.8405462 0.9618636 0.07910417 1.069127</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># mendapatkan nilai faktor utilisasi atau rho</span></a>
 <a class="sourceLine" id="cb12-2" title="2"><span class="kw">library</span>(queuecomputer)</a>
 <a class="sourceLine" id="cb12-3" title="3">que &lt;-<span class="st"> </span><span class="kw">queue_step</span>(<span class="dt">arrivals =</span> service <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(arrival), </a>
 <a class="sourceLine" id="cb12-4" title="4">                  <span class="dt">service =</span> service <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(service), <span class="dt">servers =</span> <span class="dv">13</span>)</a>
 <a class="sourceLine" id="cb12-5" title="5"><span class="kw">summary</span>(que)[<span class="dv">10</span>]</a></code></pre></div>
 <pre><code>## $utilization
-## [1] 0.7960517</code></pre>
+## [1] 0.7601147</code></pre>
 </div>
 <div id="kesimpulan" class="section level3">
 <h3><span class="header-section-number">5.0.4</span> Kesimpulan</h3>
 <p>Simpulan yang bisa kita peroleh dari analisis sistem antrian service sepeda motor yaitu:</p>
 <ol style="list-style-type: decimal">
-<li>Tingkat kesibukan sistem antrian yang ada pada service sepeda motor masih belum baik dilihat dari nilai faktor utilisasi sebesar 0.79 yang artinya 79% dari waktu pelayanan yang ada fasilitas server pada service sepeda motor cukup sibuk.</li>
-<li>Rata-rata waktu yang dihabiskan satu pelanggan dalam antrian yaitu sebesar 5.5 jam jika menggunakan satu fasilitas pelayanan, namun jika menggunakan 13 fasilitas pelayanan waktu yang dihabiskan untuk menunggu yaitu sebesar 0.07 jam atau 4.2 menit.</li>
-<li>Rata-rata waktu yang dihabiskan satu pelanggan dalam sistem saat melakukan service sepeda motor yaitu sebesar 5.5 jam jika menggunakan satu fasilitas pelayanan, namun jika menggunakan 13 fasilitas pelayanan waktu yang dihabiskan dalam sistem antrian yaitu sebesar 0.87 jam atau 52.2 menit.</li>
+<li>Tingkat kesibukan sistem antrian yang ada pada service sepeda motor masih belum baik dilihat dari nilai faktor utilisasi sebesar 0.76 yang artinya 76% dari waktu pelayanan yang ada fasilitas server pada service sepeda motor cukup sibuk.</li>
+<li>Rata-rata waktu yang dihabiskan satu pelanggan dalam antrian yaitu sebesar 6 jam jika menggunakan satu fasilitas pelayanan, namun jika menggunakan 13 fasilitas pelayanan waktu yang dihabiskan untuk menunggu yaitu sebesar 0.07 jam atau 4.2 menit.</li>
+<li>Rata-rata waktu yang dihabiskan satu pelanggan dalam sistem saat melakukan service sepeda motor yaitu sebesar 6 jam jika menggunakan satu fasilitas pelayanan, namun jika menggunakan 13 fasilitas pelayanan waktu yang dihabiskan dalam sistem antrian yaitu sebesar 0.96 jam atau 57.6 menit.</li>
 <li>Rata-rata pelanggan yang berada dalam antrian dengan satu fasilitas pelayanan sebanyak 6 pelanggan namun jika pada 13 fasilitas pelayanan sebanyak 1 pelanggan.</li>
 <li>Rata-rata pelanggan yang berada dalam sistem dengan satu fasilitas pelayanan sebanyak 5 pelanggan namun jika pada 13 fasilitas pelayanan sebanyak 0.84 pelanggan atau 1 pelanggan.</li>
 </ol>

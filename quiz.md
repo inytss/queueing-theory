@@ -29,12 +29,12 @@ Selamat kamu sudah menyelesaikan materi internal training dari "Pengenalan Teori
   - [ ] Service in random order
   - [ ] Priority service 
   
-Gunakanlah data `antrian.csv` yang tersimpan pada forder "data_input". Data `antrian.csv` merupakan data antrian pada suatu apotek yang membeli obat. Lakukanlah analisis antrian pada data tersebut, dengan membuat model antrian yang tepat tanpa melakukan pengecekan distribusi kedatangan dan pelayanan. Server yang digunakan sebanyak 2 server. 
+Gunakanlah data `antrian.csv` yang tersimpan pada forder "data_input". Data `antrian.csv` merupakan data antrian pasien pada apotek dalam membeli obat. Lakukanlah analisis antrian pada data tersebut, dengan membuat model antrian yang tepat tanpa melakukan pengecekan distribusi kedatangan dan pelayanan. Asumsikan distribusi kedatangan dan pelayanan berdistribusi Eksponensial. Server yang digunakan sebanyak 2 server dan hanya terdapat satu jalur antrian. 
 
 Berikut rangkuman dari data `antrian.csv`. 
 
-* `arrival` : jarak waktu kedatangan antar pelanggan per jam
-* `service` : lama waktu pelayanan per jam
+* `arrival` : jarak waktu kedatangan antar pasien per jam
+* `departure` : lama waktu pelayanan per jam
 
 6. Apakah model antrian yang tepat untuk sistem antrian apotek diatas?
   - [ ] (M/M/c):(LCFS/$\infty$/$\infty$)
@@ -42,17 +42,17 @@ Berikut rangkuman dari data `antrian.csv`.
   - [ ] (M/M/1):(LCFS/$\infty$/$\infty$)
   - [ ] (M/M/c):(SIRO/$\infty$/$\infty$)
 
-7. Berapakah nilai steady state atau rho pada model antrian diatas?
-  - [ ] 0.08
-  - [ ] 0.98
-  - [ ] 1
-  - [ ] 0.78
+7. Berapakah nilai steady state atau rho pada model antrian diatas dengan menggunakan 1 server?
+  - [ ] 0.027
+  - [ ] 0.015
+  - [ ] 0.988
+  - [ ] 0.787
   
-8. Berapakah rata-rata panjang antrian yang diharapkan dalam sistem dan rata-rata panjang antrain dalam antrain?
- - [ ] 4 dan 8
- - [ ] 6 dan 4
- - [ ] 5 dan 5
- - [ ] 3 dan 2
+8. Berapakah rata-rata panjang antrian yang diharapkan dalam sistem dan rata-rata panjang antrian dalam antrian dengan menggunakan 2 server?
+ - [ ] 0.027 dan 1.013
+ - [ ] 0.027 dan 2.034
+ - [ ] 1.022 dan 1.013
+ - [ ] 0.056 dan 1.024
  
 9. Apakah dengan server sebanyak 2 sudah cukup untuk mengatasi kejadian antrian yang ada?
  - [ ] sudah karena tingkat menganggur dari server kurang dari 50%

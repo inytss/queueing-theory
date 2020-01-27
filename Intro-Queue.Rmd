@@ -239,12 +239,8 @@ $W_q = \frac{P_0}{\mu c(c!)[1-\frac{\lambda}{\mu}]^2}(\frac{\lambda}{\mu})c$ </c
 ### Load package dan data
 ```{r}
 # read data
-service <- read.csv("data_input/service.csv")
+service <- read.csv("data_input/service2.csv")
 
-# service %>% 
-#    # rename(arrival = service, service = arrival) %>% 
-#    # write.csv("data_input/service.csv", row.names = F)
-#    filter()
 head(service)
 ```
 
@@ -285,7 +281,13 @@ Selanjutnya yaitu kita cek juga apakah sistem antrian yang kita miliki sudah mem
 Untuk dapat melakukan pengecekan nilai steady state, kita harus mencari nilai rata-rata kedatangan ($\lambda$) dan rata-rata pelayanan ($\mu$). 
 
 ```{r}
-source("steady_state.R")
+steady_state <- function(x){
+  if ((x$arrival %>% mean()) < (x$service %>% mean())) {
+    print("steady state")
+  } else {
+    print("not steady state")
+  }
+}
 steady_state(service)
 ```
 
@@ -300,8 +302,8 @@ library(queueing)
 c <- 13
 lambda <- mean(service$arrival)
 mu <- mean(service$service)
-input_mm1 <- queueing::NewInput.MM1(lambda = 1/lambda, mu = 1/mu)
-input_mmc <- queueing::NewInput.MMC(lambda = 1/lambda, mu = 1/mu, c = c)
+input_mm1 <- queueing::NewInput.MM1(lambda = lambda, mu = mu)
+input_mmc <- queueing::NewInput.MMC(lambda = lambda, mu = mu, c = c)
 
 # check input
 CheckInput.i_MM1(input_mm1)
@@ -319,8 +321,8 @@ summary(model_mmc)
 ```{r}
 # mendapatkan nilai faktor utilisasi atau rho
 library(queuecomputer)
-que <- queue_step(arrivals = service %>% pull(arrival), 
-                  service = service %>% pull(service), servers = 13)
+que <- queue_step(arrivals = sservice %>% pull(arrival), 
+                  service = service %>% pull(service), servers = 13
 summary(que)[10]
 ```
 
@@ -328,9 +330,9 @@ summary(que)[10]
 
 Simpulan yang bisa kita peroleh dari analisis sistem antrian service sepeda motor yaitu:
 
-1. Tingkat kesibukan sistem antrian yang ada pada service sepeda motor masih belum baik dilihat dari nilai faktor utilisasi sebesar 0.79 yang artinya 79% dari waktu pelayanan yang ada fasilitas server pada service sepeda motor cukup sibuk.
-2. Rata-rata waktu yang dihabiskan satu pelanggan dalam antrian yaitu sebesar 5.5 jam jika menggunakan satu fasilitas pelayanan, namun jika menggunakan 13 fasilitas pelayanan waktu yang dihabiskan untuk menunggu yaitu sebesar 0.07 jam atau 4.2 menit.
-3. Rata-rata waktu yang dihabiskan satu pelanggan dalam sistem saat melakukan service sepeda motor yaitu sebesar 5.5 jam jika menggunakan satu fasilitas pelayanan, namun jika menggunakan 13 fasilitas pelayanan waktu yang dihabiskan dalam sistem antrian yaitu sebesar 0.87 jam atau 52.2 menit.
+1. Tingkat kesibukan sistem antrian yang ada pada service sepeda motor masih belum baik dilihat dari nilai faktor utilisasi sebesar 0.76 yang artinya 76% dari waktu pelayanan yang ada fasilitas server pada service sepeda motor cukup sibuk.
+2. Rata-rata waktu yang dihabiskan satu pelanggan dalam antrian yaitu sebesar 6 jam jika menggunakan satu fasilitas pelayanan, namun jika menggunakan 13 fasilitas pelayanan waktu yang dihabiskan untuk menunggu yaitu sebesar 0.07 jam atau 4.2 menit.
+3. Rata-rata waktu yang dihabiskan satu pelanggan dalam sistem saat melakukan service sepeda motor yaitu sebesar 6 jam jika menggunakan satu fasilitas pelayanan, namun jika menggunakan 13 fasilitas pelayanan waktu yang dihabiskan dalam sistem antrian yaitu sebesar 0.96 jam atau 57.6 menit.
 4. Rata-rata pelanggan yang berada dalam antrian dengan satu fasilitas pelayanan sebanyak 6 pelanggan namun jika pada 13 fasilitas pelayanan sebanyak 1 pelanggan.
 5. Rata-rata pelanggan yang berada dalam sistem dengan satu fasilitas pelayanan sebanyak 5 pelanggan namun jika pada 13 fasilitas pelayanan sebanyak 0.84 pelanggan atau 1 pelanggan.
 
