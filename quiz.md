@@ -17,7 +17,7 @@ Selamat kamu sudah menyelesaikan materi internal training dari "Pengenalan Teori
   - [ ] rata-rata pelayanan lebih kecil dari rata-rata kedatangan
   - [ ] nilai steady state kurang dari 1
   
-4. Pada suatu halte bus, terdapat 4 pintu yang bisa digunakan untuk menaiki bus. Dikarenakan pada saat jam-jam sibuk, sehingga terlihat banyak sekali antrian yang ada pada halte tersebut untuk menunggu bus yang datang. Kejadian pada halter tersebut beracuan pada disiplin antrian yang mana?
+4. Pada suatu halte bus, terdapat 4 pintu yang bisa digunakan untuk menaiki bus. Dikarenakan pada saat jam-jam sibuk, sehingga terlihat banyak sekali antrian yang ada pada halte tersebut untuk menunggu bus yang datang. Kejadian pada halte tersebut beracuan pada disiplin antrian yang mana?
   - [ ] First come first served 
   - [ ] Last come first served 
   - [ ] Service in random order
