@@ -37,22 +37,23 @@ library(lubridate)
 
 Tujuan pelatihan yang ingin dicapai dari pembelajaran ini adalah sebagai berikut.
 
-* mengetahui sistem antrian
-* mengetahui asumsi pada teori antrian
-* mengetahui disiplin antrian
-* mengetahui kondisi yang harus ada pada sistem antrian
-* mengetahui model antrian yang digunakan dari suatu sistem antrian
-* mengukur kinerja sistem antrian
+* Pengertian sistem antrian
+* Komponen dalam antrian
+* Asumsi pada teori antrian
+* *Steady state*
+* Implementasi sistem antrian pada dunia bisnis
+
+![](img/mindmap-queue.png)
 
 # Pengenalan
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Apakah kamu pernah melihat antrian dalam aktivitas sehari-hari? Pasti kamu pernah melihat banyak sekali kejadian dimana pelanggan menunggu dan membentuk suatu antrian yang panjang untuk dilayani oleh server. Kita tentunya pernah melihat antrian pelanggan yang menunggu untuk dilayani di bank, antrian untuk membeli makanan di restoran, antrian untuk masuk lift, antrian untuk mendapatkan resep obat di rumah sakit, dan masih banyak lagi. Jika kita hitung waktu tunggu untuk dilayani, saya yakin tentunya akan membutuhkan banyak waktu yang cukup lama. Ini bukan masalah baru yang baru-baru ini muncul, tapi masalah lama yang sudah terjadi sejak dulu. *Pelanggan* dapat kita anggap sebagai nasabah bank, pembeli di restoran, pekerja disuatu gedung, atau pasien di rumah sakit. *Server* dapat kita anggap sebagai teller bank, kasir, lift, atau staf medis. Sistem antrian juga dapat membangun jaringan antrian. Kita dapat menggunakan jaringan antrian untuk mengoptimalkan layanan di banyak area layanan dan akan berguna dalam memecahkan sistem masalah dunia nyata. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Apakah kamu pernah melihat antrian dalam aktivitas sehari-hari? Pasti kamu pernah melihat banyak sekali kejadian dimana pelanggan menunggu dan membentuk suatu antrian yang panjang untuk dilayani oleh server. Kita tentunya pernah melihat antrian pelanggan yang menunggu untuk dilayani di bank, antrian untuk membeli makanan di restoran, antrian untuk masuk lift, antrian untuk mendapatkan resep obat di rumah sakit, dan masih banyak lagi. Jika kita hitung waktu tunggu untuk dilayani, saya yakin tentunya akan membutuhkan banyak waktu yang cukup lama. Ini bukan masalah baru yang baru-baru ini muncul, tapi masalah lama yang sudah terjadi sejak dulu. **Pelanggan** dapat kita anggap sebagai nasabah bank, pembeli di restoran, pekerja disuatu gedung, atau pasien di rumah sakit. **Server** dapat kita anggap sebagai teller bank, kasir, lift, atau staf medis. Sistem antrian juga dapat membangun jaringan antrian. Kita dapat menggunakan jaringan antrian untuk mengoptimalkan layanan di banyak area layanan dan akan berguna dalam memecahkan sistem masalah dunia nyata. 
 
 # Teori Antrian
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Antrian adalah aktivitas dengan beberapa orang atau barang yang membentuk suatu garis tunggu menunggu untuk dilayani oleh server. Teori antrian pertama kali diperkenalkan pada tahun 1909 oleh A.K Erlang. Sistem antrian dapat sebagai kedatangan pelanggan untuk suatu pelayanan, menunggu untuk mendapatkan pelayanan, dan meninggalkan sistem setelah mendapat pelayanan[^1]. Peristiwa antrian muncul karena kebutuhan akan layanan di luar kapasitas dari layanan atau fasilitas layanan, sehingga memungkinkan nasabah (pelanggan) yang datang tidak bisa segera mendapatkan layanan.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Komponen dasar dari antrian yang perlu dipertimbangkan dalam sistem antrian adalah kedatangan, pelayanan, dan antrian. Kedatangan dapat dikatakan sebagai proses input. Proses input terdiri dari sumber kedatangan (Siagian, 1987) atau calling population dan cara terjadinya kedatangan atau pola kedatangan di mana biasanya terjadi proses random. Pola kedatangan pelanggan dapat dilihat dari waktu antar kedatangan dua pelanggan yang berurutan (interarrival time). Pola kedatangan pelanggan dalam antrian dapat bersifat deterministik (pasti) ataupun stokastik (acak). Pola kedatangan bersifat deterministik apabila pola kedatangan tetap/tidak berubah dan dapat ditentukan interarrival time serta menghasilkan panjang antrian yang tetap pula. Pelayanan atau mekanisme pelayanan dapat terdiri dari satu atau lebih fasilitas pelayanan. Inti dari suatu proses antrian yaitu terdapat pada terjadinya antri itu sendiri.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Komponen dasar dari antrian yang perlu dipertimbangkan dalam sistem antrian adalah kedatangan, pelayanan, dan antrian. Kedatangan dapat dikatakan sebagai proses input. Proses input terdiri dari sumber kedatangan atau *calling population* dan cara terjadinya kedatangan atau pola kedatangan di mana biasanya terjadi proses random. Pola kedatangan pelanggan dapat dilihat dari waktu antar kedatangan dua pelanggan yang berurutan (interarrival time). Pola kedatangan pelanggan dalam antrian dapat bersifat deterministik (pasti) ataupun stokastik (acak). Pola kedatangan bersifat deterministik apabila pola kedatangan tetap/tidak berubah dan dapat ditentukan interarrival time serta menghasilkan panjang antrian yang tetap pula. Pelayanan atau mekanisme pelayanan dapat terdiri dari satu atau lebih fasilitas pelayanan. Inti dari suatu proses antrian yaitu terdapat pada terjadinya antri itu sendiri.
 
 ```{r, fig.align='center', fig.width=8, out.width="50%", echo =FALSE}
 knitr::include_graphics("img/queueing-system.jpg")
@@ -136,11 +137,11 @@ dimana:
 
 ## Kendall Notation
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dalam sistem antrian ada notasi yang merangkum semua karakteristik untuk menggambarkan model antrian. Ini adalah pengaturan notasi Kendall:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dalam sistem antrian ada notasi yang merangkum semua karakteristik untuk menggambarkan model antrian. Berikut ini merupakan sususan dalam Notasi Kendall:
 
 <center> (a/b/c):(d/e/f) </center>
 
-whereas:
+dimana:
 
 * a : distribusi banyaknya kedatangan atau distribusi antar kedatangan (M, $E_k$, D, GI)
 * b : distribusi keberangkatan (M, $E_k$, D, G)
@@ -208,7 +209,7 @@ $W_q = \frac{P_0}{\mu c(c!)[1-\frac{\lambda}{\mu}]^2}(\frac{\lambda}{\mu})c$ </c
 
 3. Single channel-multi phase
 
-   Sistem antrin ini merupakan tipe atau model antrian yang memiliki satu jalur antrian dan beberapak fase pelayanan yang disusun secara seri. Desain pelayanan seperti ini biasanya diterapkan pada pelayanan perpanjangan surat ijin mengemudi (SIM) dan pelayanan pembuatan pasport. Biasanya pada struktur antrian jenis ini terdapat beberapa loket yang tersusun secara seri yang harus dilewati oleh pelanggan hingga pelayanannya selesai. 
+   Sistem antrian ini merupakan tipe atau model antrian yang memiliki satu jalur antrian dan beberapa fase pelayanan yang disusun secara seri. Desain pelayanan seperti ini biasanya diterapkan pada pelayanan perpanjangan surat ijin mengemudi (SIM) dan pelayanan pembuatan pasport. Biasanya pada struktur antrian jenis ini terdapat beberapa loket yang tersusun secara seri yang harus dilewati oleh pelanggan hingga pelayanannya selesai. 
    
 <center> ![](img/scmp.png) </center>
    
@@ -217,14 +218,33 @@ $W_q = \frac{P_0}{\mu c(c!)[1-\frac{\lambda}{\mu}]^2}(\frac{\lambda}{\mu})c$ </c
    Sistem antrian ini memiliki antrian tunggal yang melewati beberapa jalur server yang tersusun secara paralel dan tiap jalur server terdapat beberapa server yang tersusun secara seri. Contohnya adalah pada pendaftaran pasien di rumah sakit, dimana pasien yang mendaftar di rumah sakit menuju loket pendaftaran di mana biasanya terdiri dari beberapa loket kemudian pasien melanjutkan proses antriannya menuju klinik yang diinginkan. 
    
 <center> ![](img/mcmp.png) </center>
-   
+
+# Distribusi Poisson
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Suatu percobaan yang menghasilkan jumlah sukses yang terjadi pada interval waktu ataupun daerah yang spesifik dikenal dengan percobaan Poisson. Interval waktu tersebut dapat berupa menit, hari, minggu, bulan, maupun tahun, sedangkan untuk daerah spesifiknya dapat berupa garis, luas, sisi, maupun material.
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Suatu nilai diskrit dikatakan berdistribusi Poisson dengan parameter $\lambda > 0$ jika memiliki fungsi peluang sebagai berikut:
+
+<center> $f(x; \lambda) = \frac{e^{-\lambda}\lambda ^x}{x!}$  dengan x = 1,2,3,... </center>
+
+$\lambda$ menyatakan rata-rata banyaknya sukses yang terjadi persatuan waktu atau pada daerah tertentu.
+
+# Distribusi Eksponensial
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Distribusi eksponensial digunakan untuk menggambarkan distribusi waktu pada fasilitas jasa, di mana waktu pelayanan tersebut diasumsikan bersifat bebas. Maksudnya adalah waktu untuk melayani pendatang tidak bergantung pada lama waktu yang telah dihabiskan untuk melayani pendatang sebelumnya dan tidak bergantung pada jumlah pendatang yang menunggu untuk dilayani.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Suatu nilai kontinu dikatakan berdistribusi Eksponensial dengan $\theta > 0$ jika memiliki fungsi peluang sebagai berikut:
+
+<center> $f(x;\theta) = \frac{1}{\theta}e^{-\frac{x}{\theta}}, x > 0$
+
 # Model Antrian
 
-## Model Antrian (M/M/1):(FCFS/$\infty / \infty$)
+## Model Antrian (M/M/1):(FCFS/$\infty$ / $\infty$)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Model ini mempunyai pola kedatangan berdistribusi Poisson dan waktu pelayanan berdistribusi Eksponensial. Dalam situasi ini, kedatangan membentuk satu jalur tunggal untuk dilayani oleh satuan sistem tunggal. Perumusan nilai $L_s$ dalam model antrian M/M/1 diperoleh berdasarkan rantai markov. Jika diasumsikan bahwa laju kedatangan adalah $\lambda$ dan proporsi waktu dalam keadaan 0 adalah $P_0$, maka tingkat dimana proses meninggalkan keadaan 0 adalah $\lambda P_0$. Dimana keadaan 0 hanya bisa dicapai dari keadaan 1 melalui sebuah kedatangan. Artinya, jika ada satu pelanggan dalam sistem dan dia melengkapi layanannya, maka sistem menjadi kosong karena tingkat pelayanan $\mu$ dan proporsi waktu sistem memiliki tepat satu pelanggan adalah $P_1$, maka tingkat proses memasuki keadaan 0 adalah $\mu P_1$.
 
-## Model Antrian (M/M/c):(FCFS/$\infty / \infty$)
+## Model Antrian (M/M/c):(FCFS/$\infty$ / $\infty$)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Model ini merupakan model antrian di mana laju kedatangan pelanggan berdistribusi Poisson dan laju pelayanan berdistribusi Eksponensial. Laju kedatangan pelanggan disimbolkan dengan $\lambda$, laju pelayanan disimbolkan dengan $\mu$, dan banyaknya fasilitas pelayanan disimbolkan dengan $c$. Penggunaan c fasilitas pelayanan dengan tujuan agar mempercepat laju pelayanan pada sistem. Jika jumlah pelanggan dalam sistem adalah n, dan $n \geq c$, maka laju keberangkatan gabungan sama dengan $\mu$. Sedangkan, apabila $n<c$, maka laju pelayanan sama dengan $n\mu$.
 
@@ -232,14 +252,15 @@ $W_q = \frac{P_0}{\mu c(c!)[1-\frac{\lambda}{\mu}]^2}(\frac{\lambda}{\mu})c$ </c
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bengkel merupakan tempat yang cukup krusial bagi masyarakat yang memiliki kendaraan bermotor seperti sepeda motor. Setiap sepeda motor tentunya membutuhkan perawatan rutin agar performanya tetap optimal. Hal ini yang menyebabkan banyaknya bengkel atau tempat service sepeda motor yang ramai. Ramainya suatu bengkel menyebabkan adanya antrian yang terjadi jika fasilitas pelayanan yang tersedia kurang mampu dalam menangani kedatangan pelanggan.[^4] 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kita akan coba untuk menganalisis antrian yang terdapat pada salah satu tempat service sepeda motor di daerah Yogyakarta.  Pada tempat service tersebut terdapat 13 fasilitas pelayanan atau server dan waktu pelayanan dibuka dari pukul 07.00 AM - 16.00 PM.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kita akan coba untuk menganalisis antrian yang terdapat pada salah satu tempat service sepeda motor di daerah Yogyakarta. Pada tempat service tersebut terdapat 13 fasilitas pelayanan atau server dan waktu pelayanan dibuka dari pukul 07.00 AM - 16.00 PM.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kita akan coba untuk analisis sistem antrian yanng ada pada hari tertentu. Untuk melakukan analisis antrian, kita perlu mengetahui ukuran-ukuran kinerja yang terjadi pada sistem antrian service tersebut. Oleh karena itu kita akan menggunakan bantuan package `queuecomputer` untuk analisis lebih lanjut dari sistem antrian yang kita miliki.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kita akan coba untuk analisis sistem antrian yanng ada pada hari tertentu. Untuk melakukan analisis antrian, kita perlu mengetahui ukuran-ukuran kinerja yang terjadi pada sistem antrian service tersebut. Oleh karena itu kita akan menggunakan bantuan package `queueing` untuk analisis lebih lanjut dari sistem antrian yang kita miliki.
 
-### Load package dan data
+## Load package dan data
+
 ```{r}
 # read data
-service <- read.csv("data_input/service2.csv")
+service <- read.csv("data_input/service.csv")
 
 head(service)
 ```
@@ -249,7 +270,7 @@ Penjelasan untuk data `service` adalah sebagai berikut:
 * `arrival` : jarak waktu kedatangan antar pelanggan per jam
 * `service` : lama waktu pelayanan per jam
 
-### Cek distribusi `arrival` dan `service`
+## Cek distribusi `arrival` dan `service`
 
 Dalam sistem antrian, kita harus mengetahui distribusi data yang kita miliki terlebih dahulu. Sesuai dengan asumsi pada terori antrian, untuk distribusi waktu antar kedatangan dan distribusi waktu keberangkatan secara umum harus berdistribusi Eksponensial. Oleh karena itu kita harus melakukan pengecekan distribusi terlebih dahulu. 
 
@@ -291,7 +312,7 @@ steady_state <- function(x){
 steady_state(service)
 ```
 
-### Analisis Antrian
+## Analisis Antrian
 
 Selanjutnya kita melakukan analisis antrian dengan melihat nilai faktor utilisasi dan ukuran kinerja pada antriannya. Kita akan mencoba menghitung ukuran kinerja sistem antrian dengan suatu package yaitu `queueing` dengan model antrian (M/M/1):(FCFS/$\infty$/$\infty$) dan (M/M/c):(FCFS/$\infty$/$\infty$).[^5]
 
@@ -321,12 +342,12 @@ summary(model_mmc)
 ```{r}
 # mendapatkan nilai faktor utilisasi atau rho
 library(queuecomputer)
-que <- queue_step(arrivals = sservice %>% pull(arrival), 
-                  service = service %>% pull(service), servers = 13
+que <- queue_step(arrivals = service %>% pull(arrival), 
+                  service = service %>% pull(service), servers = 13)
 summary(que)[10]
 ```
 
-### Kesimpulan
+## Kesimpulan
 
 Simpulan yang bisa kita peroleh dari analisis sistem antrian service sepeda motor yaitu:
 
