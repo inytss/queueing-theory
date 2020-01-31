@@ -197,7 +197,7 @@ $W_q = \frac{\lambda}{\mu(\mu-\lambda)}$ </center>
    
 &nbsp;&nbsp;&nbsp;&nbsp; Formula yang dapat digunakan untuk menghitung ukuran kinerja antriannya yaitu:
    
-<center> $L_s = L_q + \frac{\lambda}{\lambda} $
+<center> $L_s = L_q + \frac{\lambda}{\mu}$
 
 $L_q = \frac{\lambda\mu(\frac{\lambda}{\mu})^2}{(c-1)!(c\mu-\lambda)^2}P_0$
 
