@@ -11,7 +11,7 @@
 
 <meta name="author" content="Inayatus" />
 
-<meta name="date" content="2020-01-31" />
+<meta name="date" content="2020-02-03" />
 
 <title>Pengenalan Teori Antrian</title>
 
@@ -2855,7 +2855,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Pengenalan Teori Antrian</h1>
 <h4 class="author">Inayatus</h4>
-<h4 class="date">January 31, 2020</h4>
+<h4 class="date">February 3, 2020</h4>
 
 </div>
 
@@ -3125,11 +3125,11 @@ text-align: justify}
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">library</span>(queueing)</a>
 <a class="sourceLine" id="cb8-2" title="2"></a>
 <a class="sourceLine" id="cb8-3" title="3"><span class="co"># define input </span></a>
-<a class="sourceLine" id="cb8-4" title="4">c &lt;-<span class="st"> </span><span class="dv">13</span></a>
-<a class="sourceLine" id="cb8-5" title="5">lambda &lt;-<span class="st"> </span><span class="kw">mean</span>(service<span class="op">$</span>arrival)</a>
-<a class="sourceLine" id="cb8-6" title="6">mu &lt;-<span class="st"> </span><span class="kw">mean</span>(service<span class="op">$</span>service)</a>
+<a class="sourceLine" id="cb8-4" title="4">server &lt;-<span class="st"> </span><span class="dv">13</span> <span class="co"># banyak server</span></a>
+<a class="sourceLine" id="cb8-5" title="5">lambda &lt;-<span class="st"> </span><span class="kw">mean</span>(service<span class="op">$</span>arrival) <span class="co">#rata-rata waktu antar kedatangan</span></a>
+<a class="sourceLine" id="cb8-6" title="6">mu &lt;-<span class="st"> </span><span class="kw">mean</span>(service<span class="op">$</span>service) <span class="co">#rata-rata waktu pelayanan</span></a>
 <a class="sourceLine" id="cb8-7" title="7">input_mm1 &lt;-<span class="st"> </span>queueing<span class="op">::</span><span class="kw">NewInput.MM1</span>(<span class="dt">lambda =</span> lambda, <span class="dt">mu =</span> mu)</a>
-<a class="sourceLine" id="cb8-8" title="8">input_mmc &lt;-<span class="st"> </span>queueing<span class="op">::</span><span class="kw">NewInput.MMC</span>(<span class="dt">lambda =</span> lambda, <span class="dt">mu =</span> mu, <span class="dt">c =</span> c)</a>
+<a class="sourceLine" id="cb8-8" title="8">input_mmc &lt;-<span class="st"> </span>queueing<span class="op">::</span><span class="kw">NewInput.MMC</span>(<span class="dt">lambda =</span> lambda, <span class="dt">mu =</span> mu, <span class="dt">c =</span> server)</a>
 <a class="sourceLine" id="cb8-9" title="9"></a>
 <a class="sourceLine" id="cb8-10" title="10"><span class="co"># check input</span></a>
 <a class="sourceLine" id="cb8-11" title="11"><span class="kw">CheckInput.i_MM1</span>(input_mm1)</a>
