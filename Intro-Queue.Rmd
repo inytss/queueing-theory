@@ -320,11 +320,11 @@ Selanjutnya kita melakukan analisis antrian dengan melihat nilai faktor utilisas
 library(queueing)
 
 # define input 
-c <- 13
-lambda <- mean(service$arrival)
-mu <- mean(service$service)
+server <- 13 # banyak server
+lambda <- mean(service$arrival) #rata-rata waktu antar kedatangan
+mu <- mean(service$service) #rata-rata waktu pelayanan
 input_mm1 <- queueing::NewInput.MM1(lambda = lambda, mu = mu)
-input_mmc <- queueing::NewInput.MMC(lambda = lambda, mu = mu, c = c)
+input_mmc <- queueing::NewInput.MMC(lambda = lambda, mu = mu, c = server)
 
 # check input
 CheckInput.i_MM1(input_mm1)
