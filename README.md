@@ -1,6 +1,6 @@
 # queueing-theory
 
-<center> ![](img/mindmap-queue.png] </center>
+<center> ![](img/mindmap-queue.png) </center>
 
 
 Artikel ini berisi tentang pengenalan mengenai **teori antrian**. Antrian sendiri merupakan suatu kejadian dimana adanya suatu garis tunggu disuatu fasilitas pelayanan tertentu. Komponen utama dari suatu antrian adalah pelanggan, antrain, dan server. Pelanggan adalah orang yang ingin diberikan fasilitas pelayanan. Server adalah suatu fasilitas pelayanan itu sendiri. 
