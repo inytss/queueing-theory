@@ -45,9 +45,9 @@ Tujuan pelatihan yang ingin dicapai dari pembelajaran ini adalah sebagai berikut
 
 ![](img/mindmap-queue.png)
 
-# Glosarium
+# Terminologi
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dalam materi ini akan ditemui beberapa istilah yang mungkin cukup asing saat pertama kali mempelajari mengenai teori antrian. Oleh karena itu, berikut ini beberapa glosarium atau daftar istilah yang dapat membantu dalam pemahaman.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dalam materi ini akan ditemui beberapa istilah yang mungkin cukup asing saat pertama kali mempelajari mengenai teori antrian. Oleh karena itu, berikut ini beberapa terminologi yang dapat membantu dalam pemahaman.
 
 * $n$ : Jumlah pelanggan dalam sistem
 * $c$ : Jumlah server
