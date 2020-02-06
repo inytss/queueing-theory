@@ -1,7 +1,7 @@
 ---
 title: "Pengenalan Teori Antrian"
 author: "Inayatus"
-date: "`r format(Sys.Date(), '%B %e, %Y')`"
+date: "February 24, 2020"
 output: 
   html_document:
     toc: true
@@ -44,6 +44,20 @@ Tujuan pelatihan yang ingin dicapai dari pembelajaran ini adalah sebagai berikut
 * Implementasi sistem antrian pada dunia bisnis
 
 ![](img/mindmap-queue.png)
+
+# Glosarium
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dalam materi ini akan ditemui beberapa istilah yang mungkin cukup asing saat pertama kali mempelajari mengenai teori antrian. Oleh karena itu, berikut ini beberapa glosarium atau daftar istilah yang dapat membantu dalam pemahaman.
+
+* $n$ : Jumlah pelanggan dalam sistem
+* $c$ : Jumlah server
+* $P_0$ : Probabilitas tidak ada sepeda motor dalam sistem
+* $\lambda$ : Rata-rata banyaknya kedatangan atau rata-rata waktu antar kedatangan
+* $\mu$ : Rata-rata banyak keberangkatan atau rata-rata waktu pelayanan
+* $L_q$ : Rata-rata banyaknya antrian yang diharapkan dalam antrian
+* $L_s$ : Rata-rata banyaknya antrian yang diharapkan dalam sistem
+* $W_q$ : Rata-rata waktu tunggu yang diharapkan dalam antrian
+* $W_s$ : Rata-rata waktu tunggu yang diharapkan dalam sistem
 
 # Pengenalan
 
@@ -244,9 +258,33 @@ $\lambda$ menyatakan rata-rata banyaknya sukses yang terjadi persatuan waktu ata
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Model ini mempunyai pola kedatangan berdistribusi Poisson dan waktu pelayanan berdistribusi Eksponensial. Dalam situasi ini, kedatangan membentuk satu jalur tunggal untuk dilayani oleh satuan sistem tunggal. Perumusan nilai $L_s$ dalam model antrian M/M/1 diperoleh berdasarkan rantai markov. Jika diasumsikan bahwa laju kedatangan adalah $\lambda$ dan proporsi waktu dalam keadaan 0 adalah $P_0$, maka tingkat dimana proses meninggalkan keadaan 0 adalah $\lambda P_0$. Dimana keadaan 0 hanya bisa dicapai dari keadaan 1 melalui sebuah kedatangan. Artinya, jika ada satu pelanggan dalam sistem dan dia melengkapi layanannya, maka sistem menjadi kosong karena tingkat pelayanan $\mu$ dan proporsi waktu sistem memiliki tepat satu pelanggan adalah $P_1$, maka tingkat proses memasuki keadaan 0 adalah $\mu P_1$.
 
+&nbsp;&nbsp;&nbsp;&nbsp; Formula yang dapat digunakan untuk menghitung ukuran kinerja antriannya yaitu:
+
+<center> $\rho = \frac{\lambda}{\mu}$
+
+$L_s = \frac{\lambda}{(\mu - \lambda)}$
+
+$L_q = \lambda W_q$
+
+$W_q = W_s - \frac{1}{\mu}$
+
+$W_s = \frac{L_s}{\lambda}$ </center>
+
 ## Model Antrian (M/M/c):(FCFS/$\infty$ / $\infty$)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Model ini merupakan model antrian di mana laju kedatangan pelanggan berdistribusi Poisson dan laju pelayanan berdistribusi Eksponensial. Laju kedatangan pelanggan disimbolkan dengan $\lambda$, laju pelayanan disimbolkan dengan $\mu$, dan banyaknya fasilitas pelayanan disimbolkan dengan $c$. Penggunaan c fasilitas pelayanan dengan tujuan agar mempercepat laju pelayanan pada sistem. Jika jumlah pelanggan dalam sistem adalah n, dan $n \geq c$, maka laju keberangkatan gabungan sama dengan $\mu$. Sedangkan, apabila $n<c$, maka laju pelayanan sama dengan $n\mu$.
+
+&nbsp;&nbsp;&nbsp;&nbsp; Formula yang dapat digunakan untuk menghitung ukuran kinerja antriannya yaitu:
+
+<center> $\rho = \frac{\lambda}{\mu}$
+
+$L_s = L_q + \rho$
+
+$L_q = \frac{\rho^{c+1}}{(c-1)!}\frac{1}{(c-\rho)^2}P_0$
+
+$W_q = \frac{L_q}{\lambda}$
+
+$W_s = W_q + \frac{1}{\mu}$ </center>
 
 # Antrian Service Sepeda Motor
 
@@ -260,12 +298,12 @@ $\lambda$ menyatakan rata-rata banyaknya sukses yang terjadi persatuan waktu ata
 
 ```{r}
 # read data
-service <- read.csv("data_input/service.csv")
+antrian <- read.csv("data_input/service.csv")
 
-head(service)
+head(antrian)
 ```
 
-Penjelasan untuk data `service` adalah sebagai berikut:
+Penjelasan untuk data `antrian` adalah sebagai berikut:
 
 * `arrival` : jarak waktu kedatangan antar pelanggan per jam
 * `service` : lama waktu pelayanan per jam
@@ -285,12 +323,12 @@ Untuk melakukan pengecekan distribusi, bisa menggunakan pengujian Kolmogorov-Smi
 library(MASS)
 
 # mendapatkan nilai rate 
-fit <- fitdistr(service$arrival, "exponential")
-fit2 <- fitdistr(service$service, "exponential")
+fit <- fitdistr(antrian$arrival, "exponential")
+fit2 <- fitdistr(antrian$service, "exponential")
 
 # goodness of fit test
-ks.test(service$arrival, "pexp", fit$estimate)
-ks.test(service$service, "pexp", fit2$estimate)
+ks.test(antrian$arrival, "pexp", fit$estimate)
+ks.test(antrian$service, "pexp", fit2$estimate)
 ```
 
 Berdasarkan p-value yang ada lebih dari nilai alpha (5%), sehingga dapat kita simpulkan asumsi untuk distribusi kedatangan dan pelayanan memiliki distribusi eksponensial. Oleh karena itu kita bisa memodelkan sementara model antrian pada sistem antrian service sepeda motor ini menjadi (M/M/c):(FCFS/$\infty$/$\infty$). 
@@ -309,7 +347,7 @@ steady_state <- function(x){
     print("not steady state")
   }
 }
-steady_state(service)
+steady_state(antrian)
 ```
 
 ## Analisis Antrian
@@ -321,8 +359,8 @@ library(queueing)
 
 # define input 
 server <- 13 # banyak server
-lambda <- mean(service$arrival) #rata-rata waktu antar kedatangan
-mu <- mean(service$service) #rata-rata waktu pelayanan
+lambda <- mean(antrian$arrival) #rata-rata waktu antar kedatangan
+mu <- mean(antrian$service) #rata-rata waktu pelayanan
 input_mm1 <- queueing::NewInput.MM1(lambda = lambda, mu = mu)
 input_mmc <- queueing::NewInput.MMC(lambda = lambda, mu = mu, c = server)
 
@@ -342,8 +380,8 @@ summary(model_mmc)
 ```{r}
 # mendapatkan nilai faktor utilisasi atau rho
 library(queuecomputer)
-que <- queue_step(arrivals = service %>% pull(arrival), 
-                  service = service %>% pull(service), servers = 13)
+que <- queue_step(arrivals = antrian %>% pull(arrival), 
+                  service = antrian %>% pull(service), servers = 13)
 summary(que)[10]
 ```
 

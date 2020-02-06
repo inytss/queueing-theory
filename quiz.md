@@ -17,26 +17,26 @@ Selamat kamu sudah menyelesaikan materi internal training dari "Pengenalan Teori
   - [ ] rata-rata pelayanan lebih kecil dari rata-rata kedatangan
   - [ ] nilai steady state kurang dari 1
   
-4. Pada suatu halte bus, terdapat 4 pintu yang bisa digunakan untuk menaiki bus. Dikarenakan pada saat jam-jam sibuk, sehingga terlihat banyak sekali antrian yang ada pada setiap pintu menunggu bus yang datang. Kejadian pada pintu tunggu bus tersebut beracuan pada disiplin antrian yang mana?
-  - [ ] First come first served
-  - [ ] Last come first served
-  - [ ] Service in random order
-  - [ ] Priority service
+4. Manakah dari contoh kejadian dibawah ini dengan mengesampingkan adanya kegiatan jokying atau menyalip yang mengimplementasikan disiplin antrian *first come first served*?
+  - [ ] Antrian pada loket tiket bioskop
+  - [ ] Antrian pada unit gawat darurat rumah sakit
+  - [ ] Antrian pada lift
+  - [ ] Antrian untuk mendapatkan arisan
   
-5. Lampu lalu lintas cukup penting terutama jika pada persimpangan jalan. Lampu lalu lintas cukup membantu untuk mengatur sistem lalu lintas dijalan raya. Jika kita amati lebih dalam, disetiap pemberhentian lampu merah pada lalu lintas akan menyebabkan adanya antrian. Tanpa adanya kendaraan yang menyalip, disiplin antrian apakah yang sesuai untuk kejadian ini?
-  - [ ] First come first served
-  - [ ] Last come first served
-  - [ ] Service in random order
-  - [ ] Priority service
+5. Berdasarkan struktur yang ada pada suatu sistem antrian, manakah dari kejadian dibawah ini yang menunjukkan struktur antrian *multi channel multi phase*?
+  - [ ] pelayanan loket pendaftaran pasien di rumah sakit
+  - [ ] pelayanan pembuatan SIM
+  - [ ] pelayanan pembuatan passport
+  - [ ] pelayanan service sepeda motor
   
-Gunakanlah data `antrian.csv` yang tersimpan pada forder "data_input". Data `antrian.csv` merupakan data antrian pasien pada apotek dalam membeli obat. Lakukanlah analisis antrian pada data tersebut, dengan membuat model antrian yang tepat tanpa melakukan pengecekan distribusi kedatangan dan pelayanan. Asumsikan distribusi kedatangan dan pelayanan berdistribusi Eksponensial. Server yang digunakan sebanyak 2 server dan hanya terdapat satu jalur antrian.
+Gunakanlah data `antrian.csv` yang tersimpan pada forder "data_input". Data `antrian.csv` merupakan data antrian pasien pada apotek dalam membeli obat. Lakukanlah analisis antrian pada data tersebut, dengan membuat model antrian yang tepat. Asumsikan distribusi kedatangan dan pelayanan berdistribusi Eksponensial. Server yang digunakan sebanyak 2 server dan hanya terdapat satu jalur antrian.
 
 Berikut rangkuman dari data `antrian.csv`.
 
 * `arrival` : jarak waktu kedatangan antar pasien per jam
 * `departure` : lama waktu pelayanan per jam
 
-6. Apakah model antrian yang tepat untuk sistem antrian apotek diatas?
+1. Apakah model antrian yang tepat untuk sistem antrian apotek diatas?
   - [ ] (M/M/c):(LCFS/$\infty$/$\infty$)
   - [ ] (M/M/2):(FCFS/$\infty$/$\infty$)
   - [ ] (M/M/1):(LCFS/$\infty$/$\infty$)
